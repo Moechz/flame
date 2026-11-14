@@ -1,0 +1,195 @@
+# ===========================================================================
+# Multilingual file for the TOS 7 Docker application "flamedocker".
+# File name MUST be: <appid>.lang.  23-language superset (14 required by TOS).
+# The App Center picks the text matching the user's device language;
+# untranslated nodes fall back to English, which the official guide allows.
+# Fields: name (app title), auth (upstream author), descript (up to 512
+# chars), release_note, important (up to 512 chars).
+# Translations come from tosapp.json "translations"; run
+#   tosdocker lang <app>          to re-render this file
+#   tosdocker translate <app>     to see what still needs translating
+# ===========================================================================
+[en-us]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[zh-cn]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame 是自建的导航首页与仪表盘：把常用服务链接分类放进分区，配上天气、搜索框和书签，一页就能看到所有东西。配置就是应用数据目录里的几个 YAML 文件，重启不丢、备份也简单。"
+release_note = "1. 首个版本：基于 Docker Hub 的 Flame 2.4.0，以非 root 容器运行。导航首页，支持分区、书签、天气与搜索；配置保存在应用数据目录。"
+important    = "需要 DockerEngine（缺失时应用中心会自动安装）。首次启动会在 DockerAppData/flamedocker/data 写入示例配置，编辑它们加上你的链接与分区后重启应用即可。天气需要填一个免费的 OpenWeatherMap API Key。界面为纯 HTTP，暴露到公网前请配置带 TLS 的反向代理。"
+
+[zh-hk]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame 是自建的導航首頁與儀表盤：把常用服務連結分類放進分區，配上天氣、搜尋框和書籤，一頁就能看到所有東西。設定就是應用資料目錄裡的幾個 YAML 檔案，重啟不丟、備份也簡單。"
+release_note = "1. 首個版本：基於 Docker Hub 的 Flame 2.4.0，以非 root 容器運行。導航首頁，支援分區、書籤、天氣與搜尋；設定保存在應用資料目錄。"
+important    = "需要 DockerEngine（缺少時應用中心會自動安裝）。首次啟動會在 DockerAppData/flamedocker/data 寫入範例設定，編輯它們加上你的連結與分區後重啟應用即可。天氣需要填一個免費的 OpenWeatherMap API Key。介面為純 HTTP，公開到互聯網前請配置帶 TLS 的反向代理。"
+
+[fr-fr]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[de-de]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[it-it]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[es-es]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[hu-hu]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[ja-jp]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[ko-kr]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[pl-pl]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[ru-ru]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[tr-tr]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[pt-pt]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[ar-sa]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[cs-cz]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[he-il]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[id-id]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[nb-no]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[nl-nl]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[sv-se]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[th-th]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+
+[vi-vn]
+name         = "Flame"
+auth         = "pawelmalak"
+version      = "@@VERSION@@"
+descript     = "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up."
+release_note = "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder."
+important    = "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+

@@ -1,0 +1,103 @@
+{
+  "app_id": "flamedocker",
+  "title": "Flame",
+  "image": "pawelmalak/flame:2.4.0",
+  "repo_name": "flame",
+  "mode": "wrapper",
+  "container_port": 5005,
+  "category": [
+    "Web_Services"
+  ],
+  "volumes": [
+    {
+      "host": "/Volume1/DockerAppData/flamedocker/data",
+      "container": "/app/data"
+    }
+  ],
+  "env": {
+    "TZ": "Asia/Shanghai"
+  },
+  "auth": "pawelmalak",
+  "upstream_url": "https://github.com/pawelmalak/flame",
+  "upstream_license": "MIT",
+  "descript": "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up.",
+  "release_note": "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder.",
+  "important": "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet.",
+  "probe": {
+    "user_in_image": "(root)",
+    "entrypoint": [
+      "docker-entrypoint.sh"
+    ],
+    "cmd": [
+      "sh",
+      "-c",
+      "chown -R node /app/data && node server.js"
+    ],
+    "exposed_ports": [
+      5005
+    ],
+    "declared_volumes": [],
+    "image_healthcheck": [],
+    "digest": "pawelmalak/flame@sha256:7a5edc859235486a82871eb624f03048e44f603cba42ea3f60dc7cfe60ca6b3f",
+    "architecture": "x86_64",
+    "platforms": [
+      "x86_64",
+      "aarch64"
+    ],
+    "http_client_in_image": "wget",
+    "trial_run": {
+      "ok": false,
+      "http_code": "",
+      "state": "exited",
+      "paths": [],
+      "host_port": 18000,
+      "log_tail": "chown: /app/data: Operation not permitted\nchown: /app/data: Operation not permitted",
+      "files_in_mounts": ""
+    },
+    "docker_hub": {},
+    "github": {}
+  },
+  "healthcheck": [
+    "CMD-SHELL",
+    "wget -q -O /dev/null http://127.0.0.1:5005/ || exit 1"
+  ],
+  "entrypoint_file": "src/entrypoint.sh",
+  "platform": "x86_64",
+  "user": "1000:1000",
+  "publisher": "Moechz",
+  "compose_project": "flamedocker",
+  "github_repo": "flame",
+  "upstream_version": "2.4.0",
+  "release_tag_prefix": "v",
+  "version": "2.4.0-1",
+  "help": "https://github.com/Moechz/flame/issues",
+  "official": "https://github.com/pawelmalak/flame",
+  "license": "MIT",
+  "docker_socket": false,
+  "group_add": [],
+  "healthcheck_start_period": "45s",
+  "wrapper_note": "the image writes its theme CSS into /app/public at startup, which a non-root\ncontainer cannot do; this wrapper runs the server from a writable copy in /tmp\nand keeps the persistent data folder on the mounted volume.",
+  "wrapper_note_readme": "- **Entrypoint wrapper**: the app rewrites files inside `/app/public` on start, impossible for uid 1000; the wrapper runs it from a `/tmp` copy and keeps `/app/data` as the volume.",
+  "translations": {
+    "zh-cn": {
+      "descript": "Flame 是自建的导航首页与仪表盘：把常用服务链接分类放进分区，配上天气、搜索框和书签，一页就能看到所有东西。配置就是应用数据目录里的几个 YAML 文件，重启不丢、备份也简单。",
+      "important": "需要 DockerEngine（缺失时应用中心会自动安装）。首次启动会在 DockerAppData/flamedocker/data 写入示例配置，编辑它们加上你的链接与分区后重启应用即可。天气需要填一个免费的 OpenWeatherMap API Key。界面为纯 HTTP，暴露到公网前请配置带 TLS 的反向代理。",
+      "release_note": "1. 首个版本：基于 Docker Hub 的 Flame 2.4.0，以非 root 容器运行。导航首页，支持分区、书签、天气与搜索；配置保存在应用数据目录。"
+    },
+    "zh-hk": {
+      "descript": "Flame 是自建的導航首頁與儀表盤：把常用服務連結分類放進分區，配上天氣、搜尋框和書籤，一頁就能看到所有東西。設定就是應用資料目錄裡的幾個 YAML 檔案，重啟不丟、備份也簡單。",
+      "important": "需要 DockerEngine（缺少時應用中心會自動安裝）。首次啟動會在 DockerAppData/flamedocker/data 寫入範例設定，編輯它們加上你的連結與分區後重啟應用即可。天氣需要填一個免費的 OpenWeatherMap API Key。介面為純 HTTP，公開到互聯網前請配置帶 TLS 的反向代理。",
+      "release_note": "1. 首個版本：基於 Docker Hub 的 Flame 2.4.0，以非 root 容器運行。導航首頁，支援分區、書籤、天氣與搜尋；設定保存在應用資料目錄。"
+    }
+  },
+  "data_notes": "`/app/data` (mounted from `DockerAppData/flamedocker/data`) holds `config.yml`, `db.sqlite` and the `.secret` file Flame generates on first start.",
+  "design_notes": [
+    "**Writable copy in /tmp.** Flame regenerates CSS inside its app directory; the wrapper copies the app to `/tmp/flame` and symlinks `data` back to the volume.",
+    "**SQLite only.** Links and settings live in a small SQLite database plus YAML files."
+  ],
+  "limitations": [
+    "- The layout is edited as YAML files in the data folder; there is no admin UI for it.",
+    "- The UI is plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+  ],
+  "host_port": 8027
+}
