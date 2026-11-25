@@ -1,7 +1,7 @@
 {
   "app_id": "flamedocker",
   "title": "Flame",
-  "image": "pawelmalak/flame:2.4.0",
+  "image": "pawelmalak/flame:multiarch2.4.0@sha256:1b54ea03eb880baa2b54b1e9886ce0a36e15f67e2cd24f062e4bfa8db371726d",
   "repo_name": "flame",
   "mode": "wrapper",
   "container_port": 5005,
@@ -20,9 +20,9 @@
   "auth": "pawelmalak",
   "upstream_url": "https://github.com/pawelmalak/flame",
   "upstream_license": "MIT",
-  "descript": "Flame is a self-hosted start page and dashboard: add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration is a handful of YAML files in the application data folder, so the layout survives restarts and is easy to back up.",
-  "release_note": "1. First release: Flame 2.4.0 from Docker Hub as a non-root container. Start page with sections, bookmarks, weather and search; configuration in the application data folder.",
-  "important": "Requires DockerEngine (installed automatically if missing). On first start Flame writes example config files to DockerAppData/flamedocker/data; edit them to add your links and sections, then restart the app. Weather needs a free OpenWeatherMap API key in the config. Plain HTTP; use a TLS reverse proxy before exposing it to the internet.",
+  "descript": "Flame is a self-hosted start page and dashboard. Add links to all your services, group them into sections, and get weather, a search bar and bookmarks on one clean page. Configuration lives in a few files in the application data folder, so the layout survives restarts and is easy to back up.",
+  "release_note": "1. Review remediation. The package now uses the upstream multi-architecture image build (amd64, arm64, armv7), so aarch64 installations start instead of failing with an exec format error. 2. The default password baked into the image is no longer used: a random administrator password is generated on first start and kept in the application data folder. 3. Added PRIVACY.md (stored data, third-party endpoints, retention, user rights), NOTICE.md and a complete README with repository layout, build steps and uninstall instructions. 4. Upstream 2.4.0 is the latest release. The open CVE findings sit in the Node dependencies bundled inside the upstream image, which this package cannot patch without rebuilding that image. The image is retained and NOTICE.md documents the tracking and follow-up plan.",
+  "important": "Requires DockerEngine (installed automatically if missing). The administrator password is generated on first start and stored in DockerAppData/flamedocker/data/admin-credentials.txt, so read it on the NAS before signing in. Weather is optional and needs a WeatherAPI.com key in the config. Plain HTTP on port 8027 - put a TLS reverse proxy in front of it before exposing it to the internet.",
   "probe": {
     "user_in_image": "(root)",
     "entrypoint": [
@@ -38,7 +38,13 @@
     ],
     "declared_volumes": [],
     "image_healthcheck": [],
-    "digest": "pawelmalak/flame@sha256:7a5edc859235486a82871eb624f03048e44f603cba42ea3f60dc7cfe60ca6b3f",
+    "digest": "pawelmalak/flame@sha256:1b54ea03eb880baa2b54b1e9886ce0a36e15f67e2cd24f062e4bfa8db371726d",
+    "digest_kind": "manifest list (amd64, arm64, arm/v7)",
+    "arch_digests": {
+      "amd64": "sha256:8da1ba1901cdbb8a67bea6e395922328da6cf6240708852d48dcb9c4b149da46",
+      "arm64": "sha256:1f167a21793a8ae19310b180721a8aa0bacfb2a50ba3fe4aca3a6299104f3b18",
+      "armv7": "sha256:93da98a9fa7a65238945bdfbb0ce1a75ae644fbf65326fe64573c2b47359de29"
+    },
     "architecture": "x86_64",
     "platforms": [
       "x86_64",
@@ -46,13 +52,13 @@
     ],
     "http_client_in_image": "wget",
     "trial_run": {
-      "ok": false,
-      "http_code": "",
-      "state": "exited",
+      "ok": true,
+      "http_code": "200",
+      "state": "running",
       "paths": [],
       "host_port": 18000,
-      "log_tail": "chown: /app/data: Operation not permitted\nchown: /app/data: Operation not permitted",
-      "files_in_mounts": ""
+      "log_tail": "Generated new JWT secret and saved to data/.secret\nConnected to database\nSocket: listen\nServer is running on port 5005 in production mode",
+      "note": "run as uid 1000:1000 with src/entrypoint.sh. The image default command (chown -R node /app/data) can never work unprivileged and is replaced by the wrapper"
     },
     "docker_hub": {},
     "github": {}
@@ -69,8 +75,8 @@
   "github_repo": "flame",
   "upstream_version": "2.4.0",
   "release_tag_prefix": "v",
-  "version": "2.4.0-1",
-  "help": "https://github.com/Moechz/flame/issues",
+  "version": "2.4.0-3",
+  "help": "https://github.com/Moechz/flame/blob/main/PRIVACY.md",
   "official": "https://github.com/pawelmalak/flame",
   "license": "MIT",
   "docker_socket": false,
@@ -80,24 +86,27 @@
   "wrapper_note_readme": "- **Entrypoint wrapper**: the app rewrites files inside `/app/public` on start, impossible for uid 1000; the wrapper runs it from a `/tmp` copy and keeps `/app/data` as the volume.",
   "translations": {
     "zh-cn": {
-      "descript": "Flame 是自建的导航首页与仪表盘：把常用服务链接分类放进分区，配上天气、搜索框和书签，一页就能看到所有东西。配置就是应用数据目录里的几个 YAML 文件，重启不丢、备份也简单。",
-      "important": "需要 DockerEngine（缺失时应用中心会自动安装）。首次启动会在 DockerAppData/flamedocker/data 写入示例配置，编辑它们加上你的链接与分区后重启应用即可。天气需要填一个免费的 OpenWeatherMap API Key。界面为纯 HTTP，暴露到公网前请配置带 TLS 的反向代理。",
-      "release_note": "1. 首个版本：基于 Docker Hub 的 Flame 2.4.0，以非 root 容器运行。导航首页，支持分区、书签、天气与搜索；配置保存在应用数据目录。"
+      "descript": "Flame 是自建的导航首页与仪表盘。把常用服务链接分类放进分区，配上天气、搜索框和书签，一页就能看到所有内容。配置就是应用数据目录里的几个文件，重启不丢、备份也简单。",
+      "important": "需要 DockerEngine（缺失时应用中心会自动安装）。管理员密码在首次启动时随机生成并保存在 DockerAppData/flamedocker/data/admin-credentials.txt，登录前请先在 NAS 上查看。天气为可选功能，需要在配置中填入 WeatherAPI.com 的 Key。界面为纯 HTTP（8027 端口），暴露到公网前请配置带 TLS 的反向代理。",
+      "release_note": "1. 按审核意见整改。2. 改用上游多架构镜像（amd64、arm64、armv7），aarch64 安装后不再因 exec format error 启动失败。3. 不再使用镜像内置的默认口令，首次启动随机生成管理员密码并保存在应用数据目录。4. 新增 PRIVACY.md（数据、第三方端点、保留期、用户权利）与 NOTICE.md，补全 README（目录结构、构建、数据与卸载）。5. 上游 2.4.0 已是最新版本，CVE 出在其内置 Node 依赖中，本包无法在不重建该镜像的前提下修补，镜像保留并在 CHANGELOG 与 NOTICE 中说明跟进计划。"
     },
     "zh-hk": {
-      "descript": "Flame 是自建的導航首頁與儀表盤：把常用服務連結分類放進分區，配上天氣、搜尋框和書籤，一頁就能看到所有東西。設定就是應用資料目錄裡的幾個 YAML 檔案，重啟不丟、備份也簡單。",
-      "important": "需要 DockerEngine（缺少時應用中心會自動安裝）。首次啟動會在 DockerAppData/flamedocker/data 寫入範例設定，編輯它們加上你的連結與分區後重啟應用即可。天氣需要填一個免費的 OpenWeatherMap API Key。介面為純 HTTP，公開到互聯網前請配置帶 TLS 的反向代理。",
-      "release_note": "1. 首個版本：基於 Docker Hub 的 Flame 2.4.0，以非 root 容器運行。導航首頁，支援分區、書籤、天氣與搜尋；設定保存在應用資料目錄。"
+      "descript": "Flame 是自建的導航首頁與儀表盤。把常用服務連結分類放進分區，配上天氣、搜尋框和書籤，一頁就能看到所有內容。設定就是應用資料目錄裡的幾個檔案，重啟不丟、備份也簡單。",
+      "important": "需要 DockerEngine（缺少時應用中心會自動安裝）。管理員密碼在首次啟動時隨機產生並保存在 DockerAppData/flamedocker/data/admin-credentials.txt，登入前請先在 NAS 上查看。天氣為可選功能，需要在設定中填入 WeatherAPI.com 的 Key。介面為純 HTTP（8027 埠），公開到互聯網前請配置帶 TLS 的反向代理。",
+      "release_note": "1. 按審核意見整改。2. 改用上游多架構鏡像（amd64、arm64、armv7），aarch64 安裝後不再因 exec format error 啟動失敗。3. 不再使用鏡像內建的預設口令，首次啟動隨機產生管理員密碼並保存在應用資料目錄。4. 新增 PRIVACY.md（資料、第三方端點、保留期、使用者權利）與 NOTICE.md，補全 README（目錄結構、建置、資料與卸載）。5. 上游 2.4.0 已是最新版本，CVE 出在其內建 Node 依賴中，本包無法在不重建該鏡像的前提下修補，鏡像保留並在 CHANGELOG 與 NOTICE 中說明跟進計畫。"
     }
   },
-  "data_notes": "`/app/data` (mounted from `DockerAppData/flamedocker/data`) holds `config.yml`, `db.sqlite` and the `.secret` file Flame generates on first start.",
+  "data_notes": "`/app/data` (mounted from `DockerAppData/flamedocker/data`) holds `config.json` (layout settings, the optional WeatherAPI.com key, the optional Docker host), `db.sqlite` (links, bookmarks, cached weather), `themes.json`, `.secret` (JWT signing key generated on first start) and the generated `admin-credentials.txt`.",
   "design_notes": [
+    "**Multi-architecture image.** `pawelmalak/flame:multiarch2.4.0` is an upstream manifest list covering amd64, arm64 and arm/v7; the plain `2.4.0` tag is amd64-only and cannot run on an aarch64 NAS.",
     "**Writable copy in /tmp.** Flame regenerates CSS inside its app directory; the wrapper copies the app to `/tmp/flame` and symlinks `data` back to the volume.",
-    "**SQLite only.** Links and settings live in a small SQLite database plus YAML files."
+    "**Generated credential.** A random administrator password is created on first start and stored with mode 600 in the data folder; the image default is never effective.",
+    "**SQLite only.** Links and settings live in a small SQLite database plus a JSON config file."
   ],
   "limitations": [
-    "- The layout is edited as YAML files in the data folder; there is no admin UI for it.",
-    "- The UI is plain HTTP; use a TLS reverse proxy before exposing it to the internet."
+    "- The layout is edited in the configuration files of the data folder; there is no admin UI for the overall layout.",
+    "- The UI is plain HTTP; use a TLS reverse proxy before exposing it to the internet.",
+    "- Upstream 2.4.0 is the latest release. Known CVEs in the Node dependencies bundled inside the upstream image (axios 0.24.0, jsonwebtoken 8.5.1, multer 1.4.3) cannot be patched by this packaging; NOTICE.md documents the tracking and follow-up plan."
   ],
   "host_port": 8027
 }

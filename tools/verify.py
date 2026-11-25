@@ -104,6 +104,15 @@ for s in secs:
     i = re.search(r'important\s*=\s*"(.+)"', body)
     chk(i is None or len(i.group(1)) <= 512, f"[{s}] important longer than 512 chars")
     chk(f'version      = "{ver}"' in body, f"[{s}] version != {ver}")
+    # The App Center parses the .lang file as INI and treats an ASCII semicolon
+    # as the start of a comment, which truncates the value (seen on 2.4.0-2:
+    # the release note stopped at "search" and grew a leading quote). Use the
+    # full-width "；" or rephrase the sentence instead.
+    for line in body.splitlines():
+        mm = re.match(r'\s*([A-Za-z_]+)\s*=\s*"(.*)"\s*$', line)
+        if mm and ";" in mm.group(2):
+            chk(False, f"[{s}] {mm.group(1)} contains an ASCII ';' "
+                       f"(the INI parser truncates there) - use '；' or rephrase")
 chk(re.search(r"\bbeta\b", lang, re.I) is None, "lang must not contain the word 'beta' (V11)")
 
 # ---- svg icon ---------------------------------------------------------------
@@ -226,10 +235,16 @@ for host_s, cont_s, proto in ports:
         chk(cont == int(spec["container_port"]),
             f"web container port {cont} != spec container_port {spec['container_port']}")
     chk(proto in ("", "tcp", "udp"), f"unsupported protocol on port {host}")
-for pat, msg in ((r"(?i)(PASSWORD|SECRET|TOKEN|API_KEY):\s*\S",
+for pat, msg in ((r"(?i)(SECRET|TOKEN|API_KEY):\s*\S",
                   "compose must not contain a literal secret"),
                  (r"(?i)user:\s*[\"']?root", "compose must not run as root")):
     chk(re.search(pat, comp_nc) is None, msg)
+# PASSWORD is allowed only as an empty string: the image bakes a default
+# password into its environment, and the wrapper replaces it with a per-install
+# random one at start-up. Anything else here would be a literal credential.
+_pw_values = re.findall(r"(?im)^\s+PASSWORD:[ \t]*(.*)$", comp_nc)
+chk(all(v.strip() in ('""', "''", "") for v in _pw_values),
+    "compose may set PASSWORD only to an empty string (the wrapper generates it)")
 # Any container-side probe is fine: curl/wget/nc when the image ships one, or an
 # interpreter one-liner (node/python) when it does not.
 chk(re.search(r"^\s+test:\s*\[", comp_nc, re.M) is not None,

@@ -1,8 +1,18 @@
 # ===========================================================================
 # Flame for TerraMaster TOS 7 (Docker application)
 # ===========================================================================
-# Upstream image : pawelmalak/flame:2.4.0 (Docker Hub, used unmodified)
+# Upstream image : pawelmalak/flame:multiarch2.4.0 (Docker Hub, used unmodified)
 #                  -> https://github.com/pawelmalak/flame
+#                  This is the upstream multi-architecture build of 2.4.0. Its
+#                  manifest list covers amd64, arm64 and arm/v7:
+#                    index  sha256:1b54ea03eb880baa2b54b1e9886ce0a36e15f67e2cd24f062e4bfa8db371726d
+#                    amd64  sha256:8da1ba1901cdbb8a67bea6e395922328da6cf6240708852d48dcb9c4b149da46
+#                    arm64  sha256:1f167a21793a8ae19310b180721a8aa0bacfb2a50ba3fe4aca3a6299104f3b18
+#                    arm/v7 sha256:93da98a9fa7a65238945bdfbb0ce1a75ae644fbf65326fe64573c2b47359de29
+#                  The plain "2.4.0" tag is an amd64-only manifest, so an
+#                  aarch64 NAS cannot run it (exec format error, "installation
+#                  failed - cannot be opened"). Both architectures of this
+#                  package therefore use the multi-arch tag.
 #
 # Ports   : host 8027 -> container 5005. The host port is in the
 #           TOS-recommended 8000-19999 range and is not one of the reserved
@@ -18,6 +28,11 @@
 # Wrapper : the image writes its theme CSS into /app/public at startup, which a non-root
 #           container cannot do; this wrapper runs the server from a writable copy in /tmp
 #           and keeps the persistent data folder on the mounted volume.
+# Password: the image bakes PASSWORD=flame_password into its environment. The
+#           wrapper generates a random password on first start and exports it,
+#           so no credential is stored in this file. PASSWORD is set to an
+#           empty string here only to keep the image default out of the
+#           container environment.
 # Escaping: docker compose interpolates ${VAR}/$VAR in compose files, so any
 #           '$' meant for the shell is written '$$'.
 #
@@ -29,7 +44,7 @@
 
 services:
   flamedocker:
-    image: pawelmalak/flame:2.4.0
+    image: pawelmalak/flame:multiarch2.4.0@sha256:1b54ea03eb880baa2b54b1e9886ce0a36e15f67e2cd24f062e4bfa8db371726d
     container_name: flamedocker
     restart: unless-stopped
     user: "1000:1000"
@@ -41,6 +56,11 @@ services:
       - "8027:5005"
     environment:
       TZ: "Asia/Shanghai"
+      PASSWORD: ""
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
     volumes:
       - /Volume1/DockerAppData/flamedocker/data:/app/data
     healthcheck:
